@@ -93,21 +93,16 @@ export default function Footer() {
                   className="flex items-center gap-2 text-sm text-foreground/40 hover:text-neon-blue transition-colors"
                 >
                   <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
-                  Google Drive / Sheets
+                  Google Sheets
                 </a>
                 <a
-                  href="#"
+                  href={process.env.NEXT_PUBLIC_FORM_URL ?? '#'}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-foreground/40 hover:text-neon-blue transition-colors"
                 >
                   <Github className="w-3.5 h-3.5" aria-hidden="true" />
-                  GitHub Repository
-                </a>
-                <a
-                  href="#"
-                  className="flex items-center gap-2 text-sm text-foreground/40 hover:text-neon-blue transition-colors"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
-                  Project Report
+                  Google Form
                 </a>
               </div>
             </div>
