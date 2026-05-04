@@ -73,7 +73,7 @@ function AdaptiveMedia({
             onClick={toggleVideo}
             className="absolute bottom-4 right-4 z-50 bg-black/70 px-4 py-2 text-xs text-neon-blue border border-neon-blue/30 rounded backdrop-blur"
           >
-            {playing ? "Pause" : "Play"}
+           {playing ? "ARIA Online" : "Activate ARIA"}
           </button>
         </>
       ) : (
