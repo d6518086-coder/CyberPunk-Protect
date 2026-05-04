@@ -115,7 +115,7 @@ export default function Footer() {
             {new Date().getFullYear()} {siteTitle}. University ICT Project.
           </p>
           <p className="text-xs text-foreground/20">
-            Built with Next.js · TypeScript · Tailwind CSS · AI Tools
+            Built with v0.dev · gemini · AI Tools
           </p>
         </div>
       </div>
