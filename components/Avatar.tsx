@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Mic, Cpu, Sparkles } from "lucide-react";
 
@@ -15,6 +15,7 @@ const chatbotPrompt =
 /* =========================
    Adaptive Media Wrapper
 ========================= */
+
 function AdaptiveMedia({
   src,
   type,
@@ -27,31 +28,54 @@ function AdaptiveMedia({
   children?: React.ReactNode;
 }) {
   const [ratio, setRatio] = useState(16 / 9);
+  const [playing, setPlaying] = useState(false);
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const toggleVideo = () => {
+    if (!videoRef.current) return;
+
+    if (videoRef.current.paused) {
+      videoRef.current.muted = false; // 🔥 включаем звук
+      videoRef.current.play();
+      setPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setPlaying(false);
+    }
+  };
 
   return (
     <div
       className={`relative w-full overflow-hidden ${className}`}
       style={{
         aspectRatio: ratio,
-        maxHeight: "500px", // контроль высоты
+        maxHeight: "500px",
       }}
     >
       {type === "video" ? (
-        <video
-          src={src}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover animate-float"
-          onLoadedMetadata={(e) => {
-            const v = e.currentTarget;
-            setRatio(v.videoWidth / v.videoHeight);
-          }}
-          onMouseEnter={(e) => e.currentTarget.pause()}
-          onMouseLeave={(e) => e.currentTarget.play()}
-        />
+        <>
+          <video
+            ref={videoRef}
+            src={src}
+            loop
+            playsInline
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover animate-float"
+            onLoadedMetadata={(e) => {
+              const v = e.currentTarget;
+              setRatio(v.videoWidth / v.videoHeight);
+            }}
+          />
+
+          {/* 🔥 КНОПКА */}
+          <button
+            onClick={toggleVideo}
+            className="absolute bottom-4 right-4 z-50 bg-black/70 px-4 py-2 text-xs text-neon-blue border border-neon-blue/30 rounded backdrop-blur"
+          >
+            {playing ? "Pause" : "Play with Sound"}
+          </button>
+        </>
       ) : (
         <Image
           src={src}
